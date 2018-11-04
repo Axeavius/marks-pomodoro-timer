@@ -56,7 +56,10 @@ namespace MarksPomodoroTimer
         }
 
 
-        // Pomodoro Timer
+        #region Pomodoro Timer
+        /// <summary>
+        /// Initializes the Pomodoro Timer to its default state.
+        /// </summary>
         private void PomodoroTimerSetup()
         {
             PomodoroTimer = new DispatcherTimer();
@@ -67,6 +70,11 @@ namespace MarksPomodoroTimer
             TimerRadial.Value = timerRemainingTime;
         }
 
+        /// <summary>
+        /// Fires every time the Pomodoro Timer ticks. 
+        /// It updates the timer radial, timer text, 
+        /// and displays the Break Time overlay when the timer ends.
+        /// </summary>
         private void PomodoroTimer_Tick(object sender, object e)
         {
             TimerRadial.Value = timerRemainingTime;
@@ -97,6 +105,10 @@ namespace MarksPomodoroTimer
             }
         }
 
+        /// <summary>
+        /// Initializes the Break Time Timer to its default state. 
+        /// It will also determines if Break Time should be longer (4 tasks completed).
+        /// </summary>
         private void BreakTimeSetup()
         {
             BreakTimeTimer = new DispatcherTimer();
@@ -112,6 +124,11 @@ namespace MarksPomodoroTimer
             TimerRadial.Value = breakTimeRemainingTime;
         }
 
+        /// <summary>
+        /// Fires every time the Break Time Timer ticks. 
+        /// It updates the timer radial, timer text, 
+        /// and displays the Break Time overlay when the timer ends.
+        /// </summary>
         private void BreakTime_Tick(object sender, object e)
         {
             TimerRadial.Value = breakTimeRemainingTime;
@@ -143,6 +160,10 @@ namespace MarksPomodoroTimer
             }
         }
 
+        /// <summary>
+        /// Stops any active timer and resets it to its default state. 
+        /// If the timer has ended, don't do anything.
+        /// </summary>
         private void ResetTimer()
         {
             PomodoroTimer.Stop();
@@ -173,6 +194,9 @@ namespace MarksPomodoroTimer
             TimerText.Text = "Ready?";
         }
 
+        /// <summary>
+        /// Updates the TextBlock above the timer radial with the active state of the timer.
+        /// </summary>
         private void UpdateTimerHeader()
         {
             TaskListSetup();
@@ -186,15 +210,23 @@ namespace MarksPomodoroTimer
                 TimerHeader.Text = "Task " + selectedTask;
             }
         }
+        #endregion
 
 
-        // Task List
+        #region Task List
+        /// <summary>
+        /// Initializes the Task List, and checks if any new tasks have been added
+        /// </summary>
         private void TaskListSetup()
         {
             selectedTask = Convert.ToInt32(TaskList.SelectedIndex + 1);
             taskListCount = ViewModel.Tasks.Count;
         }
 
+        /// <summary>
+        /// Selects the next task ListViewItem in the Task List ListView. 
+        /// If the last task is selected, the first ListViewItem in the Task List ListView is selected.
+        /// </summary>
         private void SelectNextTask()
         {
             TaskListSetup();
@@ -209,6 +241,9 @@ namespace MarksPomodoroTimer
             }
         }
 
+        /// <summary>
+        /// Locates and checks the checkbox of the selected task ListViewItem.
+        /// </summary>
         private void CheckSelectedTaskCheckbox()
         {
             ListViewItem listViewItem = (ListViewItem)TaskList.ContainerFromIndex(TaskList.SelectedIndex);
@@ -218,9 +253,13 @@ namespace MarksPomodoroTimer
 
             checkBox.IsChecked = true;
         }
+        #endregion
 
 
-        // Clock
+        #region Clock
+        /// <summary>
+        /// Initializes the clock.
+        /// </summary>
         private void ClockSetup()
         {
             Clock.Tick += Clock_Tick;
@@ -228,13 +267,17 @@ namespace MarksPomodoroTimer
             Clock.Start();
         }
 
+        /// <summary>
+        /// Fires every time the clock ticks.
+        /// </summary>
         private void Clock_Tick(object sender, object e)
         {
             ClockTime.Text = DateTime.Now.ToString("h:mm tt");
         }
+        #endregion
 
 
-        // Click Events
+        #region Click Events
         private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (overlayVisible)
@@ -407,5 +450,6 @@ namespace MarksPomodoroTimer
         {
             completedTasks--;
         }
+        #endregion
     }
 }
