@@ -4,6 +4,8 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MarksPomodoroTimer
@@ -76,22 +78,19 @@ namespace MarksPomodoroTimer
                 timerRemainingTime--;
 
                 UpdateTimerHeader();
-                PlayPauseTimerButton.IsChecked = true;
             }
             else
             {
-                PomodoroTimer.Stop();
-                completedTasks++;
-                breakTime = true;
-                PlayPauseTimerButton.IsChecked = false;
-
-                // TODO: Check checkbox of currently selected task
-
                 taskCompleteSound.Play();
+                PomodoroTimer.Stop();
+                breakTime = true;
 
+                CheckSelectedTaskCheckbox();
+                
                 DisplayBreakTimeOverlay.Begin();
                 overlayVisible = true;
                 StartBreakTimeButton.IsHitTestVisible = true;
+                PlayPauseTimerButton.IsChecked = false;
 
                 TimerText.Text = "Time's Up!";
                 UpdateTimerHeader();
@@ -124,22 +123,20 @@ namespace MarksPomodoroTimer
                 breakTimeRemainingTime--;
 
                 UpdateTimerHeader();
-                PlayPauseTimerButton.IsChecked = true;
             }
             else
             {
+                breakCompleteSound.Play();
                 BreakTimeTimer.Stop();
                 breakTime = false;
-                PlayPauseTimerButton.IsChecked = false;
 
                 UpdateTimerHeader();
                 SelectNextTask();
-
-                breakCompleteSound.Play();
-
+                
                 DisplayTimerOverlay.Begin();
                 overlayVisible = true;
                 StartNextTaskButton.IsHitTestVisible = true;
+                PlayPauseTimerButton.IsChecked = false;
 
                 TimerText.Text = "Break Over!";
                 UpdateTimerHeader();
@@ -194,7 +191,7 @@ namespace MarksPomodoroTimer
         // Task List
         private void TaskListSetup()
         {
-            selectedTask = System.Convert.ToInt32(TaskList.SelectedIndex + 1);
+            selectedTask = Convert.ToInt32(TaskList.SelectedIndex + 1);
             taskListCount = ViewModel.Tasks.Count;
         }
 
@@ -210,6 +207,16 @@ namespace MarksPomodoroTimer
             {
                 TaskList.SelectedItem = ViewModel.Tasks[TaskList.SelectedIndex + 1];
             }
+        }
+
+        private void CheckSelectedTaskCheckbox()
+        {
+            ListViewItem listViewItem = (ListViewItem)TaskList.ContainerFromIndex(TaskList.SelectedIndex);
+            ListViewItemPresenter listViewItemPresenter = (ListViewItemPresenter)VisualTreeHelper.GetChild(listViewItem, 0);
+            StackPanel stackPanel = (StackPanel)VisualTreeHelper.GetChild(listViewItemPresenter, 0);
+            CheckBox checkBox = (CheckBox)VisualTreeHelper.GetChild(stackPanel, 0);
+
+            checkBox.IsChecked = true;
         }
 
 
@@ -251,6 +258,8 @@ namespace MarksPomodoroTimer
             TaskListSetup();
             PomodoroTimerSetup();
             ResetTimer();
+
+            TaskList.SelectedItem = e.ClickedItem.ToString();
             UpdateTimerHeader();
         }
 
@@ -364,12 +373,12 @@ namespace MarksPomodoroTimer
             HideBreakTimeOverlay.Begin();
             overlayVisible = false;
 
-            StartBreakTimeButton.IsHitTestVisible = false;
-            PlayPauseTimerButton.IsChecked = true;
-
             BreakTimeSetup();
             ResetTimer();
             BreakTimeTimer.Start();
+
+            StartBreakTimeButton.IsHitTestVisible = false;
+            PlayPauseTimerButton.IsChecked = true;
 
             TimerText.Text = "Go!";
         }
@@ -378,15 +387,25 @@ namespace MarksPomodoroTimer
         {
             HideTimerOverlay.Begin();
             overlayVisible = false;
-
-            StartNextTaskButton.IsHitTestVisible = false;
-            PlayPauseTimerButton.IsChecked = true;
-
+            
             PomodoroTimerSetup();
             ResetTimer();
             PomodoroTimer.Start();
 
+            StartNextTaskButton.IsHitTestVisible = false;
+            PlayPauseTimerButton.IsChecked = true;
+
             TimerText.Text = "Go!";
+        }
+
+        private void TaskCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            completedTasks++;
+        }
+
+        private void TaskCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            completedTasks--;
         }
     }
 }

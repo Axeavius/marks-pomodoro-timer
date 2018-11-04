@@ -109,7 +109,12 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="x:String">
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox x:Name="TaskCheckbox" MinWidth="20" />
+                                    <CheckBox
+                                        x:Name="TaskCheckbox"
+                                        MinWidth="20"
+                                        Checked="TaskCheckbox_Checked"
+                                        Unchecked="TaskCheckbox_Unchecked"
+                                        ToolTipService.ToolTip="Mark As Complete?" />
                                     <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="{Binding}" />
                                 </StackPanel>
                             </DataTemplate>

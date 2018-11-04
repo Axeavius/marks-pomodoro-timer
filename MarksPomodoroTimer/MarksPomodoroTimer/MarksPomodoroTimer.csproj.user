@@ -11,5 +11,13 @@
     <SplashScreenSource>C:\Users\Markd\Downloads\tomato-512.png</SplashScreenSource>
     <PackageLogoSource>C:\Users\Markd\Downloads\tomato-512.png</PackageLogoSource>
     <BadgeLogoSource>C:\Users\Markd\Downloads\tomato-512.png</BadgeLogoSource>
+    <AppxPackageIsForStore>False</AppxPackageIsForStore>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>x86|x64|arm</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <UseEmulator>true</UseEmulator>
   </PropertyGroup>
 </Project>
