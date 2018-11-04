@@ -1,0 +1,21 @@
+# User-specific files
+.vs/
+*.rsuser
+*.suo
+*.csproj.user
+*.user
+*.userosscache
+*.sln.docstates
+
+# Generated files
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]undleArtifacts/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
