@@ -6,7 +6,7 @@
 
 ### What it does
 
-This app was designed to be easy and intuitive to use. The timer automatically switches between Pomodoro and Break Time, and the task list is prepopulated with 4 tasks. If 4 isn't enough for you, just click the Add New Task button as many times as you need. At the end of any timer, a visual overlay will appear and a gentle audio notification will play. Also, the selected task will automatically be marked as completed. 
+This app was designed to be easy and intuitive to use. The timer automatically switches between Pomodoro and Break Time, and the task list is prepopulated with 4 tasks. If 4 isn't enough for you, just click the Add Task button as many times as you need. At the end of any timer, a visual overlay will appear and a gentle audio notification will play. Also, the selected task will automatically be marked as completed. 
 
 The timer controls are also simple and straightforward: 
 

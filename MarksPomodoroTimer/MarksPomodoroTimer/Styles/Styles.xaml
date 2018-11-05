@@ -50,10 +50,17 @@
     </ResourceDictionary.ThemeDictionaries>
 
     <!--  App Styles  -->
+    <x:Double x:Key="CompactWindowWidthSnapPoint">0</x:Double>
+    <x:Double x:Key="NormalWindowWidthSnapPoint">641</x:Double>
+    <x:Double x:Key="LargeWindowWidthSnapPoint">761</x:Double>
+
+    <x:Double x:Key="CompactWindowHeightSnapPoint">0</x:Double>
+    <x:Double x:Key="NormalWindowHeightSnapPoint">681</x:Double>
+
     <Style x:Key="AppTitleBarGridStyle" TargetType="Grid">
         <Setter Property="Height" Value="32" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Background" Value="{ThemeResource CustomAcrylicBrush}" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <Style x:Key="AppTitleBarTextBlockStyle" TargetType="TextBlock">
@@ -232,7 +239,7 @@
                                 FontFamily="Segoe MDL2 Assets"
                                 FontSize="20"
                                 Glyph="&#xE710;" />
-                            <TextBlock HorizontalAlignment="Left">Add New Task</TextBlock>
+                            <TextBlock HorizontalAlignment="Left">Add Task</TextBlock>
                         </StackPanel>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
